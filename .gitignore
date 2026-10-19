@@ -1,0 +1,41 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+*.dump
+*.sql.gz
+fts-rebuild-submission*.zip
+.DS_Store
+Thumbs.db
+
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+*.key
+*credentials*.json
+*service-account*.json
+
+# Dependencies and builds
+node_modules/
+dist/
+coverage/
+*.log
+
+# Local databases and archives
+*.sqlite
+*.sqlite3
+*.db
+*.zip
+*.tar
+*.tar.gz
+
+# Operating system
+.DS_Store
+Thumbs.db

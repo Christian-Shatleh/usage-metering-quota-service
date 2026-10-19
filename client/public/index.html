@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>FTS Usage Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div>
+        <a class="brand" href="#overview" aria-label="FTS dashboard home">FTS<span>.</span></a>
+        <p>Usage metering and quota control</p>
+      </div>
+      <nav aria-label="Dashboard sections">
+        <a href="#overview">Overview</a>
+        <a href="#users">Users</a>
+        <a href="#plans">Plans</a>
+        <a href="#consume">Consume</a>
+        <a href="#history">History</a>
+      </nav>
+      <div class="connection-state">
+        <span id="connectionDot" class="dot" aria-hidden="true"></span>
+        <span id="connectionLabel">Disconnected</span>
+      </div>
+    </aside>
+
+    <main>
+      <header>
+        <div>
+          <p class="eyebrow">CONTROL PANEL</p>
+          <h1>Usage Dashboard</h1>
+          <p id="accountName" class="subtitle">Connect an account to begin.</p>
+        </div>
+        <button id="refreshButton" class="secondary compact" type="button" disabled>
+          Refresh data
+        </button>
+      </header>
+
+      <section class="card authentication" id="authentication">
+        <div>
+          <h2>Account connection</h2>
+          <p>The key stays only in this browser tab and is never stored.</p>
+        </div>
+        <form id="connectForm" class="inline-form">
+          <label class="sr-only" for="apiKey">Account API key</label>
+          <input id="apiKey" type="password" placeholder="fts_…" required
+                 autocomplete="off" spellcheck="false">
+          <button id="connectButton" type="submit">Connect</button>
+          <button id="disconnectButton" class="secondary" type="button" disabled>
+            Disconnect
+          </button>
+        </form>
+        <p id="message" class="message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="overview">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">CURRENT UTC BILLING MONTH</p>
+            <h2>Monthly overview</h2>
+          </div>
+          <span id="monthStart" class="pill">—</span>
+        </div>
+        <div class="stats">
+          <article class="card metric">
+            <p>Allowance</p>
+            <strong id="allowance">—</strong>
+          </article>
+          <article class="card metric">
+            <p>Consumed</p>
+            <strong id="consumed">—</strong>
+          </article>
+          <article class="card metric">
+            <p>Remaining</p>
+            <strong id="remaining">—</strong>
+          </article>
+        </div>
+        <div class="card">
+          <div class="progress-label">
+            <span>Account consumption</span>
+            <span id="progressText">0%</span>
+          </div>
+          <div class="progress" role="progressbar" aria-label="Account consumption"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="progressBar"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="split" id="users">
+        <article class="card">
+          <div class="section-heading">
+            <h2>Users</h2>
+            <span id="userCount" class="pill">0</span>
+          </div>
+          <div id="userList" class="stack empty">Connect to load users.</div>
+        </article>
+        <article class="card">
+          <h2>Create user</h2>
+          <form id="createUserForm">
+            <label for="newUserName">Name</label>
+            <input id="newUserName" maxlength="120" required disabled>
+            <label for="newUserPlan">User plan</label>
+            <select id="newUserPlan" required disabled></select>
+            <button id="createUserButton" type="submit" disabled>Create user</button>
+          </form>
+          <p id="userResult" class="message" role="status" aria-live="polite"></p>
+        </article>
+      </section>
+
+      <section class="split" id="plans">
+        <article class="card">
+          <div class="section-heading">
+            <h2>Available user plans</h2>
+            <span id="planCount" class="pill">0</span>
+          </div>
+          <div id="planList" class="stack empty">Connect to load plans.</div>
+        </article>
+        <article class="card">
+          <h2>Create custom plan</h2>
+          <form id="createPlanForm">
+            <label for="planName">Plan name</label>
+            <input id="planName" maxlength="100" required disabled>
+            <div class="field-grid">
+              <div>
+                <label for="planAllowance">Monthly allowance</label>
+                <input id="planAllowance" type="number" min="1" step="1" required disabled>
+              </div>
+              <div>
+                <label for="planRequestLimit">Per-request limit</label>
+                <input id="planRequestLimit" type="number" min="1" step="1" required disabled>
+              </div>
+            </div>
+            <button id="createPlanButton" type="submit" disabled>Create plan</button>
+          </form>
+          <p id="planResult" class="message" role="status" aria-live="polite"></p>
+        </article>
+      </section>
+
+      <section class="card" id="consume">
+        <h2>Consume credits</h2>
+        <form id="consumeForm" class="consume-form">
+          <div>
+            <label for="userSelect">User</label>
+            <select id="userSelect" required disabled></select>
+          </div>
+          <div>
+            <label for="units">Credits</label>
+            <input id="units" type="number" min="1" step="1" value="10" required disabled>
+          </div>
+          <button id="consumeButton" type="submit" disabled>Submit consumption</button>
+        </form>
+        <p id="consumeResult" class="message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="card" id="history">
+        <div class="section-heading">
+          <h2>Recent usage requests</h2>
+          <span class="muted">Latest 50</span>
+        </div>
+        <div id="historyList" class="stack empty">Connect to load history.</div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
